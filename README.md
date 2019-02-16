@@ -35,3 +35,4 @@ Matas    Cenys    6.60
 1. Atlikta su C masyvu
 2. Atlikta su vektoriais
 
+Versija su vektoriais turi daugiau pataisymų ir neleidžia vartotojui įvesti neteisingų duomenų

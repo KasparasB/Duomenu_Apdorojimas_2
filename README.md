@@ -3,9 +3,9 @@
 Programa nuskaito:
 * Studento vardą ir pavardę
 * Automatiškai sugeneruoja:
-** Namu darbu skaičių (3-10)
-** Namu darbu pažymius (1-10)
-** Egzamino pažymį
+1. Namu darbu skaičių (3-10)
+2. Namu darbu pažymius (1-10)
+3. Egzamino pažymį
 
 Galima pasirinkti 2 skirtingus galutinio balo skaičiavimo būdus t.y., pagal medianą arba vidurkį
 

@@ -1,4 +1,0 @@
-Pavarde     Vardas      ND1  ND2  ND3  ND4  ND5  ND6  ND7  Egzaminas
-Jonas       Jonauskas   8    9    10   6    10   9    10   10
-Petras      Petrauskas  7    10   8    5    4    6    9	   10
-Antanas     Antanauskas 5    9    10   8    9    9    8    10

@@ -5,4 +5,4 @@ Source.o: Source.cpp
 Funkcijos.o: Funkcijos.cpp
 	g++ -c Funkcijos.cpp
 clean:
-	rm *.o main
+rm *.o *.txt main

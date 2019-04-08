@@ -60,7 +60,6 @@ struct Stopwatch {
 };
 
 void createData(int noFiles);
-//void Ilgiausias(vector<Universitetas>&A, int n, int &Vardas, int &Pavarde);
 bool Input();
 double Median(vector<double> &Pazymiai);
 double Average(vector<double> &Pazymiai);

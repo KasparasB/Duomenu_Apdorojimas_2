@@ -3,19 +3,102 @@
 std::ifstream in;
 std::ofstream out;
 
-void DuomenuKurimas()
+void Stopwatch::Start() {
+	start = std::chrono::high_resolution_clock::now();
+}
+
+void Stopwatch::End(string action) {
+	end = std::chrono::high_resolution_clock::now();
+	duration = end - start;
+	cout << action <<std::fixed<< std::setprecision(3) << duration.count() << "s" <<endl;
+}
+
+void Universitetas::putInfo(string name, string surname, double exam, double score)
 {
+	m_Name = name;
+	m_Surname = surname;
+	m_Exam = exam;
+	m_Score = score;
+}
+
+void Universitetas::putName()
+{
+	cin >> m_Name;
+}
+
+void Universitetas::putSurname()
+{
+	cin >> m_Surname;
+}
+
+string Universitetas::getName()
+{
+	return m_Name;
+}
+
+string Universitetas::getSurname()
+{
+	return m_Surname;
+}
+
+double Universitetas::getExam()
+{
+	return m_Exam;
+}
+
+double Universitetas::getScore()
+{
+	return m_Score;
+}
+
+Universitetas::Universitetas()
+{
+	m_Exam = 0;
+	m_Score = 0;
+	m_Name = "";
+	m_Surname = "";
+}
+
+Universitetas::~Universitetas()
+{
+}
+
+bool compareLetter(Universitetas &stud1, Universitetas& stud2)
+{
+	if (stud1.getName() < stud2.getName() || (stud1.getName() == stud2.getName() && stud1.getSurname() < stud2.getSurname()))
+		return 1;
+	else
+		return 0;
+}
+
+bool compareNumber(Universitetas &stud1, Universitetas& stud2)
+{
+	return stud1.getScore() > stud2.getScore();
+}
+
+bool compareNameLength(Universitetas &stud1, Universitetas& stud2)
+{
+	return stud1.getName().length() < stud2.getName().length();
+}
+
+bool compareSurnameLength(Universitetas &stud1, Universitetas& stud2)
+{
+	return stud1.getSurname().length() < stud2.getSurname().length();
+}
+
+void createData(int noFiles)
+{
+	Stopwatch a;
 	int n = 100;
 	int Skaicius2 = 0;
 	std::random_device rd;  //Will be used to obtain a seed for the random number engine
 	std::mt19937 mt(rd());
 	std::uniform_real_distribution<> Skaicius(1, 11);
 
-	//std::uniform_int_distribution<> Pazymiams(2, 10);
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < noFiles; i++)
 	{
-		auto start = std::chrono::system_clock::now();
+		a.Start();
 
 		out.open("kursiokai" + std::to_string(i) + ".txt");
 
@@ -27,7 +110,7 @@ void DuomenuKurimas()
 		out << "Egzaminas" << endl;
 		for (int y = 0; y < n; y++)
 		{
-			out << "Pavarde" + std::to_string(y+1) << " " << "Vardas" + std::to_string(y+1) << " ";
+			out << "Pavarde" + std::to_string(y + 1) << " " << "Vardas" + std::to_string(y + 1) << " ";
 			for (int y = 0; y < 8; y++)
 			{
 				Skaicius2 = Skaicius(mt);
@@ -37,24 +120,23 @@ void DuomenuKurimas()
 		}
 
 		n *= 10;
-		auto end = std::chrono::system_clock::now();
-		auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start) * 0.001;
-		std::cout <<  "Kurimas: "<< setprecision(4) << elapsed.count() << '\n';
+		a.End("Duomenu kurimas:");
 		out.close();
 	}
-	
+
 }
 
-void Skaitymas(vector<Universitetas>& Studentas, int & n, int Med_Vid, int TekstinioFailoNr)
+void Read(vector<Universitetas>& Studentas, int & n, int Med_Vid, int TekstinioFailoNr)
 {
-	auto start = std::chrono::system_clock::now();
+	Stopwatch a;
+	a.Start();
 
 	string duomuo;
 	int e = 0;
 	int pazymiu_sk = 0;
 
 	std::ifstream in("kursiokai" + std::to_string(TekstinioFailoNr) + ".txt");
-	
+
 	while (true) // true  in.peek() != EOF
 	{
 
@@ -92,10 +174,11 @@ void Skaitymas(vector<Universitetas>& Studentas, int & n, int Med_Vid, int Tekst
 
 	string tmp;
 	string s1;
+
+	Universitetas Tmp;
 	
 	string Vardas;
 	string Pavarde;
-	int PazymiuSk;
 	vector<double>Pazymiai;
 	double Egzaminas;
 	double Galutinis;
@@ -109,12 +192,12 @@ void Skaitymas(vector<Universitetas>& Studentas, int & n, int Med_Vid, int Tekst
 		eil >> Pavarde;
 
 
-		//VardasPavarde(Studentas, n);
-		for(int e = 0; eil.peek() != EOF; e++)
+		//nameCheck(Studentas, n);
+		for (int e = 0; eil.peek() != EOF; e++)
 		{
 			eil >> tmp;
 			Pazymiai.reserve(10);
-			if (std::stoi(tmp)>= 0 && std::stoi(tmp) <= 10)
+			if (std::stoi(tmp) >= 0 && std::stoi(tmp) <= 10)
 			{
 				Pazymiai.push_back(std::stoi(tmp));
 			}
@@ -124,18 +207,16 @@ void Skaitymas(vector<Universitetas>& Studentas, int & n, int Med_Vid, int Tekst
 				std::exit;
 				break;
 			}
-			PazymiuSk= e;
 		}
-		
-		if (PazymiuSk == 1) cout << "Mokinys turi tik viena pazymi ir del to jo vidurkis nebus skaicuojamas" << endl;
-		if (PazymiuSk > 0 && PazymiuSk != 1)
+
+		if (Pazymiai.size() == 1) cout << "Mokinys turi tik viena pazymi ir del to jo vidurkis nebus skaicuojamas" << endl;
+		if (Pazymiai.size() > 0 && Pazymiai.size() != 1)
 		{
 			Egzaminas = Pazymiai[Pazymiai.size() - 1];
 			Pazymiai.erase(Pazymiai.begin() + Pazymiai.size() - 1);
-			Generavimas(Pazymiai, Med_Vid, Galutinis,PazymiuSk, Egzaminas);
-
-			//void Generavimas(vector<int>& Pazymiai, int Med_Vid, double& Galutinis, int& PazymiuSk, int &Egzaminas)
-			Studentas.push_back({ Vardas, Pavarde, Pazymiai, Egzaminas, Galutinis, PazymiuSk });
+			calculation(Pazymiai, Med_Vid, Galutinis, Egzaminas);
+			Tmp.putInfo(Vardas, Pavarde, Egzaminas, Galutinis);
+			Studentas.push_back(Tmp);
 			n++;
 		}
 		else
@@ -145,18 +226,15 @@ void Skaitymas(vector<Universitetas>& Studentas, int & n, int Med_Vid, int Tekst
 
 
 	}
-	
 
 	in.close();
-	auto end = std::chrono::system_clock::now();
-	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start) * 0.001;
-	std::cout <<  "Visi veiksmai: "<< setprecision(4) << elapsed.count() << '\n';
+	a.End("Visi veiksmai: ");
 
 }
 
 
 
-bool Tikrinimas(int i)
+bool checkFile(int i)
 {
 	std::ifstream in;
 	in.open("kursiokai" + std::to_string(i) + ".txt");
@@ -180,26 +258,14 @@ bool is_alpha(const std::string &str)
 	return std::all_of(str.begin(), str.end(), ::isalpha);
 }
 
-void Ilgiausias(vector<Universitetas>& A, int n, int &Vardas, int &Pavarde) // Funkcija ilgiausiam vardui ar pavardei rasti
+bool findScore(Universitetas& stud2)
 {
-	int MAX_V = 0;
-	int MAX_PV = 0;
-	int ilgis1 = 0;
-	int ilgis2 = 0;
-	for (int i = 0; i < n; i++)
-	{
-		ilgis1 = A[i].Vardas.length();
-		MAX_V = max(ilgis1, MAX_V);
-
-		ilgis2 = A[i].Pavarde.length();
-		MAX_PV = max(ilgis2, MAX_PV);
-	}
-	Vardas = MAX_V;
-	Pavarde = MAX_PV;
+	return stud2.getScore() < 5; // pasibandyt su >
 }
 
-bool Ivedimas()
+bool Input()
 {
+	cin.ignore(80, '\n');
 	cout << "Skaiciuoti pagal mediana ar vidurki? (0 - Mediana, 1 - Vidurkis)" << endl;
 	string trap;
 	getline(cin, trap);
@@ -215,163 +281,138 @@ bool Ivedimas()
 	{
 		return false;
 	}
-	
+
 }
 
-double Mediana(vector<double> &Pazymiai, int e)
+double Median(vector<double> &Pazymiai)
 {
 	double med = 0;
-	if (e != 0)
+	if (Pazymiai.size() != 0)
 	{
-		if (e % 2 == 0) //Tikrinam ar lyginis skaicius elementu ar ne
+		if (Pazymiai.size() % 2 == 0) //Tikrinam ar lyginis skaicius elementu ar ne
 		{
-			med = ((double)Pazymiai[e / 2] + Pazymiai[(e / 2) - 1]) / 2;
+			med = ((double)Pazymiai[Pazymiai.size() / 2] + Pazymiai[(Pazymiai.size() / 2) - 1]) / 2;
 		}
 		else
 		{
-			med = (double)Pazymiai[e / 2];
+			med = (double)Pazymiai[Pazymiai.size() / 2];
 		}
 	}
 
 	return med;
 }
 
-double Vidurkis(vector<double> &Pazymiai, int e)
+double Average(vector<double> &Pazymiai)
 {
 	double vid = 0;
 
-	if (e != 0)
+	if (Pazymiai.size() != 0)
 	{
-		for (int x = 0; x < e; x++)
+		for (int x = 0; x < Pazymiai.size(); x++)
 			vid += Pazymiai[x];
 
-		vid = vid / e;
+		vid = vid / Pazymiai.size();
 	}
 
 	return vid;
 }
-
-
-void VardasPavarde(vector<Universitetas> &A, int i) // Vartotojas netgi turi galimybe istaisyti neteisinga varda tekstiniame faile :O
+//PERDARYT SU KLASEM
+void nameCheck(vector<Universitetas> &A, int i) // Vartotojas netgi turi galimybe istaisyti neteisinga varda tekstiniame faile :O
 {
-
-	while (!(is_alpha(A[i].Vardas))) //Prasoma stringo
+	while (!(is_alpha(A[i].getName()))) //Prasoma stringo
 	{
 		std::cin.clear();
 		cout << "Klaida tekstiniame faile! Pataisykite mokinio varda" << endl;
-		cin >> A[i].Vardas;
+		A[i].putName();
 	}
 
-	while (!(is_alpha(A[i].Pavarde))) //Prasoma stringo
+	while (!(is_alpha(A[i].getSurname()))) //Prasoma stringo
 	{
 		std::cin.clear();
 		cout << "Klaida tekstiniame faile! Pataisykite mokinio pavarde" << endl;
-		cin >> A[i].Pavarde;
+		A[i].putSurname();
 	}
 }
+// PERDARYT SU KLASEM
 
 
-
-bool RikiavimasPagalRaide(Universitetas &stud1, Universitetas& stud2)
+void printing(std::ostream& out, vector<Universitetas>& Studentas, int Ilgiausia_Pavarde, int Ilgiausias_Vardas)
 {
-	if (stud1.Vardas < stud2.Vardas || (stud1.Vardas == stud2.Vardas && stud1.Pavarde < stud2.Pavarde))
-		return 1;
-	else
-		return 0;
+	for (int i = 0; i < Studentas.size(); i++)
+		out << left << setw(Ilgiausias_Vardas) << Studentas[i].getName() << " " << left << setw(Ilgiausia_Pavarde) << Studentas[i].getSurname() << fixed << setprecision(2) << "  " << Studentas[i].getScore() << endl;
 }
 
-bool RikiavimasPagalSkaiciu(Universitetas &stud1, Universitetas& stud2)
+void geriBlogiMokiniai(vector<Universitetas>& Studentas, int n, int Ilgiausias_Vardas, int Ilgiausia_Pavarde, int TekstinioFailoNr,int Med_Vid)
 {
-	return stud1.Galutinis > stud2.Galutinis;
-}
-
-void geriBlogiMokiniai(vector<Universitetas>& Studentas, int n, int Ilgiausias_Vardas, int Ilgiausia_Pavarde, int TekstinioFailoNr)
-{
-	auto start = std::chrono::system_clock::now();
-
+	Stopwatch a;
+	a.Start();
 	std::ofstream out1("AtsiverciantysKnygaMokiniai" + std::to_string(TekstinioFailoNr) + ".txt");
 	std::ofstream out2("Nelaimeliai" + std::to_string(TekstinioFailoNr) + ".txt");
 
-	
-	int slenkstis = 0;
-	for (int i = 0; i < n; i++)
-	{
-		if (Studentas[i].Galutinis < 5)
-		{
-			slenkstis = i;
-			break;
-			//out2 << left << setw(Ilgiausias_Vardas) << Studentas[i].Vardas << " " << left << setw(Ilgiausia_Pavarde) << Studentas[i].Pavarde << fixed << setprecision(2) << "  " << Studentas[i].Galutinis << endl;
-			//blogi.push_back(Studentas[i]);
-		}
-	}
-	vector<Universitetas> geri(Studentas.begin(),Studentas.begin()+slenkstis);
-	vector<Universitetas> blogi(Studentas.begin() + slenkstis, Studentas.end());
+	auto search = std::find_if(Studentas.begin(), Studentas.end(), findScore);
 
-	for(int i = 0 ; i<geri.size(); i++) 
-		out1 << left << setw(Ilgiausias_Vardas) << geri[i].Vardas << " " << left << setw(Ilgiausia_Pavarde) << geri[i].Pavarde << fixed << setprecision(2) << "  " << geri[i].Galutinis << endl;
+	vector<Universitetas> blogi(search, Studentas.end());
+	Studentas.erase(search, Studentas.end());
+	Studentas.shrink_to_fit();
 
-	for (int i = 0; i < blogi.size(); i++)
-		out2 << left << setw(Ilgiausias_Vardas) << blogi[i].Vardas << " " << left << setw(Ilgiausia_Pavarde) << blogi[i].Pavarde << fixed << setprecision(2) << "  " << blogi[i].Galutinis << endl;
+	box(out1,Med_Vid,Ilgiausias_Vardas,Ilgiausia_Pavarde);
+	box(out2, Med_Vid, Ilgiausias_Vardas, Ilgiausia_Pavarde);
 
-	auto end = std::chrono::system_clock::now();
-	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start) * 0.001;
-	std::cout << "Veiksmai su gerais, blogais mokiniais(isvedimas): " << setprecision(4) << elapsed.count() << '\n';
+	printing(out1, Studentas, Ilgiausia_Pavarde, Ilgiausias_Vardas);
+	printing(out2, blogi, Ilgiausia_Pavarde, Ilgiausias_Vardas);
+
+	blogi.clear();
+	blogi.shrink_to_fit();
+
+	a.End("Veiksmai su gerais, blogais mokiniais(isvedimas): ");
 }
 
-void Isvedimas(vector<Universitetas>& Studentas, int Med_Vid, int n, int TekstinioFailoNr)
+void box(std::ostream& out, int Med_Vid, int Ilgiausias_Vardas, int Ilgiausia_Pavarde)
 {
-	auto start = std::chrono::system_clock::now();
-	std::ofstream out("rezultatas" + std::to_string(TekstinioFailoNr) + ".txt");
-
-	string gal = " "; //Susikuriu stringa, kad galeciau ji naudoti apacioje
-
-	int Ilgiausias_Vardas; //Sukuriami intai, kad pagelbetu teksto lygiavime
-	int Ilgiausia_Pavarde;
-
-	Ilgiausias(Studentas, n, Ilgiausias_Vardas, Ilgiausia_Pavarde);
-
 	//Del lygiavimo atlieku siuos pakeitimus
 	if (Ilgiausias_Vardas < 6) Ilgiausias_Vardas = 6;
 	if (Ilgiausia_Pavarde < 7) Ilgiausia_Pavarde = 7;
 
+	string gal;
 	if (Med_Vid) gal = "Galutinis (Med.)";
 	else gal = "Galutinis (Vid.)";
 	int Ilgis = Ilgiausias_Vardas + Ilgiausia_Pavarde + 19; // Nustatom kiek reikes padeti bruksneliu
 	out << left << setw(Ilgiausias_Vardas) << "Vardas" << left << setw(Ilgiausia_Pavarde) << " Pavarde" << left << "  " << gal << endl;
 	for (int i = 0; i < Ilgis; i++) out << "_";
 	out << endl;
-
-	std::sort(Studentas.begin(), Studentas.end(), RikiavimasPagalSkaiciu);
-
-	geriBlogiMokiniai(Studentas, n, Ilgiausias_Vardas, Ilgiausia_Pavarde,TekstinioFailoNr);
-
-	auto end = std::chrono::system_clock::now();
-	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start) * 0.001;
-	std::cout << setprecision(4) << "Isvedimas: " << elapsed.count() << '\n';
-
-	for (int i = 0; i < n; i++)
-	{
-		out << left << setw(Ilgiausias_Vardas) << Studentas[i].Vardas << " " << left << setw(Ilgiausia_Pavarde) << Studentas[i].Pavarde << fixed << setprecision(2) << "  " << Studentas[i].Galutinis << endl;
-	}
-
-	out.close();
-	Studentas.clear();
-	Studentas.shrink_to_fit();
-
-	//auto end = std::chrono::system_clock::now();
-	//auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start) * 0.001;
-	//std::cout << setprecision(4) << "Isvedimas: "<< elapsed.count() << '\n';
 }
 
-void Generavimas(vector<double>& Pazymiai, int Med_Vid, double & Galutinis, int & PazymiuSk, double & Egzaminas)
+void Isvedimas(vector<Universitetas>& Studentas, int Med_Vid, int n, int TekstinioFailoNr)
+{
+	Stopwatch a;
+	a.Start();
+
+	std::sort(Studentas.begin(), Studentas.end(), compareNumber);
+
+	auto longest_name = std::max_element(Studentas.begin(), Studentas.end(), compareNameLength); // randama kur yra ilgiausias vardas bei pavarde
+	auto longest_surname = std::max_element(Studentas.begin(), Studentas.end(), compareSurnameLength);
+
+	int Ilgiausias_Vardas = longest_name->getName().length();  
+	int Ilgiausia_Pavarde = longest_surname->getName().length();
+
+	geriBlogiMokiniai(Studentas, n, Ilgiausias_Vardas, Ilgiausia_Pavarde, TekstinioFailoNr,Med_Vid);
+
+
+	a.End("Isvedimas");
+
+	Studentas.clear();
+	Studentas.shrink_to_fit();
+}
+
+void calculation(vector<double>& Pazymiai, int Med_Vid, double & Galutinis, double & Egzaminas)
 {
 	if (Med_Vid)// Mediana
 	{
 		sort(Pazymiai.begin(), Pazymiai.end());
-		Galutinis = Mediana(Pazymiai, PazymiuSk);
+		Galutinis = Median(Pazymiai);
 	}
 	else		//Vidurkis
-		Galutinis = Vidurkis(Pazymiai, PazymiuSk);
+		Galutinis = Average(Pazymiai);
 
 	Galutinis = Galutinis * 0.4 + 0.6 * Egzaminas;
 	Pazymiai.erase(Pazymiai.begin(), Pazymiai.end());

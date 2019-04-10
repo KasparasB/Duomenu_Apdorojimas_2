@@ -166,7 +166,7 @@ Taip pat  panaudojau **std::search()** algoritmą, kuris padeda greičiau surast
 3. Per cmd atsidarius tą folderį ir parašius **make** ir po to **./main**
 4. Išvalyti visus duomenis su make **clean**
 
-## [v1.1](https://github.com/KasparasB/Duomenu_Apdorojimas/releases/tag/v1.0) papildymas
+## [v1.1](https://github.com/KasparasB/Duomenu_Apdorojimas_2/releases/tag/v1.1) papildymas
 
 Pereita iš struktūros į klases. Atlikti atitinkami pakeitimai kode.
 

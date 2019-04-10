@@ -166,4 +166,29 @@ Taip pat  panaudojau **std::search()** algoritmą, kuris padeda greičiau surast
 3. Per cmd atsidarius tą folderį ir parašius **make** ir po to **./main**
 4. Išvalyti visus duomenis su make **clean**
 
+## [v1.1](https://github.com/KasparasB/Duomenu_Apdorojimas/releases/tag/v1.0) papildymas
 
+Pereita iš struktūros į klases. Atlikti atitinkami pakeitimai kode.
+
+Programų palyginimas:
+
+|Failų kiekis                 |Klasė     |Struktūra   |
+|-----------------------------|----------|------------|
+|10 000                       |0.104 s       |0.692 s     |
+|100 000                      |0.910 s   |6.992         s|
+|1 000 0000                   |9.23 s   |13.02        s|
+
+Bandymai su optimizacijomis:
+
+|Failų kiekis                 |Optimizacijos lygis     |Struktūra   |
+|-----------------------------|----------|------------|
+|100                      |0.104 s       |0.692 s     |
+|1 000                     |0.910 s   |6.992         s|
+|10 000                       |0.104 s       |0.692 s     |
+|100 000                      |0.910 s   |6.992         s|
+|1 000 0000                   |9.23 s   |13.02        s|
+
+|Optimizacijos lygis               |n = 100    |n = 1 000   |n = 10 000    |n = 100 000   |n = 1 000 000   |
+|Be optimizacijos                     |0.009 s       |0.034 s     |0.283 s | 2.530 s| 25.127 s|
+|/O1                  |0.007 s       |0.020 s     |0.248 s | 1.450 s| 13.287 s|
+|/O2                  |0.008 s       |0.023 s     |0.209 s | 1.402 s| 14.082 s|

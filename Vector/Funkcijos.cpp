@@ -1,4 +1,4 @@
-#include "Header.h"
+﻿#include "Header.h"
 
 std::ifstream in;
 std::ofstream out;
@@ -13,7 +13,7 @@ void Stopwatch::End(string action) {
 	cout << action <<std::fixed<< std::setprecision(3) << duration.count() << "s" <<endl;
 }
 
-void Universitetas::putInfo(string name, string surname, double exam, double score)
+void Universitetas::putInfo(string name = " ", string surname = " " , double exam = 0, double score = 0)
 {
 	m_Name = name;
 	m_Surname = surname;
@@ -31,22 +31,23 @@ void Universitetas::putSurname()
 	cin >> m_Surname;
 }
 
-string Universitetas::getName()
+string Universitetas::getName() const
 {
 	return m_Name;
 }
 
-string Universitetas::getSurname()
+
+string Universitetas::getSurname() const
 {
 	return m_Surname;
 }
 
-double Universitetas::getExam()
+double Universitetas::getExam() const
 {
 	return m_Exam;
 }
 
-double Universitetas::getScore()
+double Universitetas::getScore() const
 {
 	return m_Score;
 }
@@ -62,6 +63,7 @@ Universitetas::Universitetas()
 Universitetas::~Universitetas()
 {
 }
+
 
 bool compareLetter(Universitetas &stud1, Universitetas& stud2)
 {
@@ -85,6 +87,44 @@ bool compareSurnameLength(Universitetas &stud1, Universitetas& stud2)
 {
 	return stud1.getSurname().length() < stud2.getSurname().length();
 }
+
+std::ostream & operator<<(std::ostream & out, const Universitetas & a)
+{
+	out << a.m_Name << " " << a.m_Surname << " Egzaminas: " << a.m_Exam << " Galutinis balas: " << a.m_Score << endl;
+	return out;
+}
+
+std::istream & operator>>(std::istream & in, Universitetas & a)
+{
+	string Name; string Surname; double Exam; double Score;
+	std::cout << "Iveskite mokinio varda, pavarde, egzamino pazymi, galutini bala: " << std::endl;
+	in >> Name >> Surname >> Exam >> Score;
+	a.putInfo(Name, Surname, Exam, Score);
+	return in;
+}
+
+Universitetas& Universitetas::operator=(const Universitetas& v)
+{
+	if (&v == this) return *this;
+
+	m_Exam = v.getExam();
+	m_Name = v.getName();
+	m_Surname = v.getSurname();
+	m_Score = v.getScore();
+
+	return *this; // grąžiname objektą
+}
+bool operator!=(const Universitetas& a, const Universitetas& b)
+{
+	return a.getScore() != b.getScore();
+}
+
+
+bool operator==(const Universitetas& a, const Universitetas& b) // Lygina galutinius pazymius
+{
+	return a.getScore() == b.getScore();
+}
+
 
 void createData(int noFiles)
 {
@@ -361,6 +401,8 @@ void geriBlogiMokiniai(vector<Universitetas>& Studentas, int n, int Ilgiausias_V
 	printing(out1, Studentas, Ilgiausia_Pavarde, Ilgiausias_Vardas);
 	printing(out2, blogi, Ilgiausia_Pavarde, Ilgiausias_Vardas);
 
+
+
 	blogi.clear();
 	blogi.shrink_to_fit();
 
@@ -396,7 +438,6 @@ void Isvedimas(vector<Universitetas>& Studentas, int Med_Vid, int n, int Tekstin
 	int Ilgiausia_Pavarde = longest_surname->getName().length();
 
 	geriBlogiMokiniai(Studentas, n, Ilgiausias_Vardas, Ilgiausia_Pavarde, TekstinioFailoNr,Med_Vid);
-
 
 	a.End("Isvedimas");
 

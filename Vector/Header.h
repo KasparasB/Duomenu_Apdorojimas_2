@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <iostream>
 #include <iomanip>
@@ -42,13 +42,33 @@ public:
 	void putName();
 	void putSurname();
 
-	string getName();
-	string getSurname();
-	double getExam();
-	double getScore();
+	string getName() const;
+	string getSurname() const;
+	double getExam() const;
+	double getScore() const;
 	Universitetas();
 	~Universitetas();
+	Universitetas(const Universitetas& v)
+	{
+		m_Exam = v.m_Exam;
+		m_Name = v.m_Name;
+		m_Surname = v.m_Surname;
+		m_Score = v.m_Score;
+	}
 
+	// Using friend functions because I think it will be easier to access members of class.
+	friend std::ostream& operator<<(std::ostream& out,const Universitetas &a); // Prints out a desired student
+	friend std::istream& operator>>(std::istream& in, Universitetas &a); // Changes data of student
+	Universitetas& operator=(const Universitetas& v);
+	Universitetas(Universitetas&& s) : // move c-tor
+		m_Name{ s.m_Name },
+		m_Surname{ s.m_Surname},
+		m_Exam{ s.m_Exam },
+		m_Score{ s.m_Score}
+		// s yra vardinė r-value nuoroda, todėl l-value
+		// nd_{ std::move(s.nd_) } // be std::move kviestų copy c-tor
+	{
+	}
 };
 
 struct Stopwatch {

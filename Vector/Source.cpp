@@ -3,6 +3,7 @@
 int main()
 {
 	Stopwatch a;
+
 	int n = 0; // mokiniu skaicius
 	bool Med_Vid = 0;// mediana ar vidurkis // tikrinimui ar yra duomenu failas
 	int noFiles = 0; // failu skaicius

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <iostream>
 #include <iomanip>
@@ -30,25 +30,46 @@ using std::vector;
 using std::getline;
 using std::list;
 
-class Universitetas {
+class Zmogus {
+protected:
+	string m_Name, m_Surname;
+	Zmogus() : m_Name(""), m_Surname("") {};
+	Zmogus(const string& name) : m_Name(name), m_Surname("") {};
+	Zmogus(const string& name, const string& surname) : m_Name(name), m_Surname(surname) {};
+public:
+	virtual void lytis() = 0;
+};
+
+
+class Universitetas: protected Zmogus {
 private:
-	string m_Name;
-	string m_Surname;
 	double m_Exam;
 	double m_Score;
 public:
-
 	void putInfo(string, string, double, double);
 	void putName();
 	void putSurname();
-
-	string getName();
-	string getSurname();
-	double getExam();
-	double getScore();
-	Universitetas();
+	void lytis() {};
+	string getName() const;
+	string getSurname() const;
+	double getExam() const;
+	double getScore() const;
 	~Universitetas();
+	Universitetas(const Universitetas& v) : Zmogus(v.m_Name, v.m_Surname), m_Exam{ v.m_Exam }, m_Score{ v.m_Score }{};
 
+	Universitetas(string vardas, string pavarde) : Zmogus{vardas,pavarde}, m_Exam(0), m_Score(0) {};
+	Universitetas() : Zmogus{}, m_Exam(0), m_Score(0){};
+	// Using friend functions because I think it will be easier to access members of class.
+	friend std::ostream& operator<<(std::ostream& out,const Universitetas &a); // Prints out a desired student
+	friend std::istream& operator>>(std::istream& in, Universitetas &a); // Changes data of student
+	Universitetas& operator=(const Universitetas& v);
+	Universitetas(Universitetas&& s) : // move c-tor
+		Zmogus(std::move(s.m_Name),std::move(s.m_Surname)),
+		m_Exam(std::move(s.m_Exam) ),
+		m_Score(std::move(s.m_Score))
+		// s yra vardinė r-value nuoroda, todėl l-value
+		// nd_{ std::move(s.nd_) } // be std::move kviestų copy c-tor
+	{}
 };
 
 struct Stopwatch {

@@ -200,6 +200,6 @@ Pridėti konstruktoriai:
 Pastaba: move konstruktoriaus panaudojimo kol kas nėra, nes savo klasėje nesaugoju studento pažymių, o tik egzamino pažymius bei galutinius pažymius. Bus pataisyta vėlesnėje versijoje.
 
 
-## [v1.5](https://github.com/KasparasB/Duomenu_Apdorojimas/releases/tag/v1.5) papildymas
+## [v1.5](https://github.com/KasparasB/Duomenu_Apdorojimas_2/releases/tag/v1.5) papildymas
 
 Pridėta abstrakti bazinė klasė "Zmogus". 

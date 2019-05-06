@@ -186,7 +186,7 @@ Bandymai su optimizacijomis:
 |/O1                  |0.007 s       |0.020 s     |0.248 s | 1.450 s| 13.287 s|
 |/O2                  |0.008 s       |0.023 s     |0.209 s | 1.402 s| 14.082 s|
 
-## [v1.2](https://github.com/KasparasB/Duomenu_Apdorojimas/releases/tag/v1.2) papildymas
+## [v1.2](https://github.com/KasparasB/Duomenu_Apdorojimas_2/releases/tag/v1.2) papildymas
 
 Pridėti konstruktoriai:
 1. ==

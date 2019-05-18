@@ -1,4 +1,4 @@
-#include "Header.h"
+﻿#include "Header.h"
 
 std::ifstream in;
 std::ofstream out;
@@ -13,7 +13,7 @@ void Stopwatch::End(string action) {
 	cout << action <<std::fixed<< std::setprecision(3) << duration.count() << "s" <<endl;
 }
 
-void Universitetas::putInfo(string name, string surname, double exam, double score)
+void Universitetas::putInfo(string name = " ", string surname = " " , double exam = 0, double score = 0)
 {
 	m_Name = name;
 	m_Surname = surname;
@@ -31,26 +31,27 @@ void Universitetas::putSurname()
 	cin >> m_Surname;
 }
 
-string Universitetas::getName()
+string Zmogus::getName() const
 {
 	return m_Name;
 }
 
-string Universitetas::getSurname()
+
+string Zmogus::getSurname() const
 {
 	return m_Surname;
 }
 
-double Universitetas::getExam()
+double Universitetas::getExam() const
 {
 	return m_Exam;
 }
 
-double Universitetas::getScore()
+double Universitetas::getScore() const
 {
 	return m_Score;
 }
-
+/*
 Universitetas::Universitetas()
 {
 	m_Exam = 0;
@@ -58,10 +59,11 @@ Universitetas::Universitetas()
 	m_Name = "";
 	m_Surname = "";
 }
-
+*/
 Universitetas::~Universitetas()
 {
 }
+
 
 bool compareLetter(Universitetas &stud1, Universitetas& stud2)
 {
@@ -85,6 +87,45 @@ bool compareSurnameLength(Universitetas &stud1, Universitetas& stud2)
 {
 	return stud1.getSurname().length() < stud2.getSurname().length();
 }
+
+std::ostream & operator<<(std::ostream & out, const Universitetas & a)
+{
+	out << a.m_Name << " " << a.m_Surname << " Egzaminas: " << a.m_Exam << " Galutinis balas: " << a.m_Score << endl;
+	return out;
+}
+
+std::istream & operator>>(std::istream & in, Universitetas & a)
+{
+	string Name; string Surname; double Exam; double Score;
+	std::cout << "Iveskite mokinio varda, pavarde, egzamino pazymi, galutini bala: " << std::endl;
+	in >> Name >> Surname >> Exam >> Score;
+	a.putInfo(Name, Surname, Exam, Score);
+	return in;
+}
+
+Universitetas& Universitetas::operator=(const Universitetas& v)
+{
+	if (&v == this) return *this;
+
+	m_Surname = v.getName();
+	m_Exam = v.getExam();
+	m_Score = v.getScore();
+	m_Name = v.getSurname();
+	
+	
+	return *this; // grąžiname objektą
+}
+bool operator!=(const Universitetas& a, const Universitetas& b)
+{
+	return a.getScore() != b.getScore();
+}
+
+
+bool operator==(const Universitetas& a, const Universitetas& b) // Lygina galutinius pazymius
+{
+	return a.getScore() == b.getScore();
+}
+
 
 void createData(int noFiles)
 {
@@ -126,7 +167,7 @@ void createData(int noFiles)
 
 }
 
-void Read(vector<Universitetas>& Studentas, int & n, int Med_Vid, int TekstinioFailoNr)
+void Read(Vector<Universitetas>& Studentas, int & n, int Med_Vid, int TekstinioFailoNr)
 {
 	Stopwatch a;
 	a.Start();
@@ -175,11 +216,11 @@ void Read(vector<Universitetas>& Studentas, int & n, int Med_Vid, int TekstinioF
 	string tmp;
 	string s1;
 
-	Universitetas Tmp;
+	Universitetas Tmp ;
 	
 	string Vardas;
 	string Pavarde;
-	vector<double>Pazymiai;
+	Vector<double>Pazymiai;
 	double Egzaminas;
 	double Galutinis;
 
@@ -193,10 +234,10 @@ void Read(vector<Universitetas>& Studentas, int & n, int Med_Vid, int TekstinioF
 
 
 		//nameCheck(Studentas, n);
+		Pazymiai.reserve(10);
 		for (int e = 0; eil.peek() != EOF; e++)
 		{
 			eil >> tmp;
-			Pazymiai.reserve(10);
 			if (std::stoi(tmp) >= 0 && std::stoi(tmp) <= 10)
 			{
 				Pazymiai.push_back(std::stoi(tmp));
@@ -284,7 +325,7 @@ bool Input()
 
 }
 
-double Median(vector<double> &Pazymiai)
+double Median(Vector<double> &Pazymiai)
 {
 	double med = 0;
 	if (Pazymiai.size() != 0)
@@ -302,7 +343,7 @@ double Median(vector<double> &Pazymiai)
 	return med;
 }
 
-double Average(vector<double> &Pazymiai)
+double Average(Vector<double> &Pazymiai)
 {
 	double vid = 0;
 
@@ -317,7 +358,7 @@ double Average(vector<double> &Pazymiai)
 	return vid;
 }
 //PERDARYT SU KLASEM
-void nameCheck(vector<Universitetas> &A, int i) // Vartotojas netgi turi galimybe istaisyti neteisinga varda tekstiniame faile :O
+void nameCheck(Vector<Universitetas> &A, int i) // Vartotojas netgi turi galimybe istaisyti neteisinga varda tekstiniame faile :O
 {
 	while (!(is_alpha(A[i].getName()))) //Prasoma stringo
 	{
@@ -336,13 +377,13 @@ void nameCheck(vector<Universitetas> &A, int i) // Vartotojas netgi turi galimyb
 // PERDARYT SU KLASEM
 
 
-void printing(std::ostream& out, vector<Universitetas>& Studentas, int Ilgiausia_Pavarde, int Ilgiausias_Vardas)
+void printing(std::ostream& out, Vector<Universitetas>& Studentas, int Ilgiausia_Pavarde, int Ilgiausias_Vardas)
 {
 	for (int i = 0; i < Studentas.size(); i++)
 		out << left << setw(Ilgiausias_Vardas) << Studentas[i].getName() << " " << left << setw(Ilgiausia_Pavarde) << Studentas[i].getSurname() << fixed << setprecision(2) << "  " << Studentas[i].getScore() << endl;
 }
 
-void geriBlogiMokiniai(vector<Universitetas>& Studentas, int n, int Ilgiausias_Vardas, int Ilgiausia_Pavarde, int TekstinioFailoNr,int Med_Vid)
+void geriBlogiMokiniai(Vector<Universitetas>& Studentas, int n, int Ilgiausias_Vardas, int Ilgiausia_Pavarde, int TekstinioFailoNr,int Med_Vid)
 {
 	Stopwatch a;
 	a.Start();
@@ -351,9 +392,9 @@ void geriBlogiMokiniai(vector<Universitetas>& Studentas, int n, int Ilgiausias_V
 
 	auto search = std::find_if(Studentas.begin(), Studentas.end(), findScore);
 
-	vector<Universitetas> blogi(search, Studentas.end());
-	Studentas.erase(search, Studentas.end());
-	Studentas.shrink_to_fit();
+	Vector<Universitetas> blogi(search, Studentas.end());
+	//Studentas.erase(search, Studentas.end());
+	//Studentas.shrink_to_fit();
 
 	box(out1,Med_Vid,Ilgiausias_Vardas,Ilgiausia_Pavarde);
 	box(out2, Med_Vid, Ilgiausias_Vardas, Ilgiausia_Pavarde);
@@ -361,8 +402,10 @@ void geriBlogiMokiniai(vector<Universitetas>& Studentas, int n, int Ilgiausias_V
 	printing(out1, Studentas, Ilgiausia_Pavarde, Ilgiausias_Vardas);
 	printing(out2, blogi, Ilgiausia_Pavarde, Ilgiausias_Vardas);
 
-	blogi.clear();
-	blogi.shrink_to_fit();
+	
+
+	//blogi.clear();
+	//blogi.shrink_to_fit();
 
 	a.End("Veiksmai su gerais, blogais mokiniais(isvedimas): ");
 }
@@ -382,10 +425,13 @@ void box(std::ostream& out, int Med_Vid, int Ilgiausias_Vardas, int Ilgiausia_Pa
 	out << endl;
 }
 
-void Isvedimas(vector<Universitetas>& Studentas, int Med_Vid, int n, int TekstinioFailoNr)
+void Isvedimas(Vector<Universitetas>& Studentas, int Med_Vid, int n, int TekstinioFailoNr)
 {
 	Stopwatch a;
 	a.Start();
+
+
+	
 
 	std::sort(Studentas.begin(), Studentas.end(), compareNumber);
 
@@ -397,14 +443,13 @@ void Isvedimas(vector<Universitetas>& Studentas, int Med_Vid, int n, int Tekstin
 
 	geriBlogiMokiniai(Studentas, n, Ilgiausias_Vardas, Ilgiausia_Pavarde, TekstinioFailoNr,Med_Vid);
 
-
 	a.End("Isvedimas");
 
 	Studentas.clear();
 	Studentas.shrink_to_fit();
 }
 
-void calculation(vector<double>& Pazymiai, int Med_Vid, double & Galutinis, double & Egzaminas)
+void calculation(Vector<double>& Pazymiai, int Med_Vid, double & Galutinis, double & Egzaminas)
 {
 	if (Med_Vid)// Mediana
 	{

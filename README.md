@@ -203,3 +203,91 @@ Pastaba: move konstruktoriaus panaudojimo kol kas nėra, nes savo klasėje nesau
 ## [v1.5](https://github.com/KasparasB/Duomenu_Apdorojimas_2/releases/tag/v1.5) papildymas
 
 Pridėta abstrakti bazinė klasė "Zmogus". 
+
+## [v2.0](https://github.com/KasparasB/Duomenu_Apdorojimas_2/releases/tag/v2.0) papildymas
+
+1. Sukurta Doxygen dokumentacija
+2. Realizuoti Google Unit Testai
+
+```shell
+#include "pch.h"
+#include "Header.h"
+#include "Vector.h"
+#include <gtest/gtest.h>
+
+Vector<double> v{ 2,3,7,8,10 };
+int Med_Vid = 0;
+double Galutinis = 0;
+double Egzaminas = 9;
+double t = 7.64;
+
+TEST(Mediana, ArReiksmeTeisinga)
+{
+	ASSERT_EQ(7, Median(v));
+}
+
+TEST(Vidurkis, ArReiksmeTeisinga)
+{
+	ASSERT_EQ(6, Average(v));
+}
+
+TEST(Galutinis, ArReiksmeTeisinga)
+{
+	calculation(v, Med_Vid, Galutinis, Egzaminas);
+	EXPECT_EQ(7.8, Galutinis);
+}
+
+TEST(Vardas, ArNormalus)
+{
+	ASSERT_EQ(0, is_alpha("Kasparas45"));
+}
+
+TEST(Pavarde, ArNormalus)
+{
+	ASSERT_EQ(1, is_alpha("Brazenas"));
+}
+```
+Gautas rezultatas:
+
+```shell
+Running main() from gtest_main.cc
+[==========] Running 5 tests from 5 test cases.
+[----------] Global test environment set-up.
+[----------] 1 test from Mediana
+[ RUN      ] Mediana.ArReiksmeTeisinga
+[       OK ] Mediana.ArReiksmeTeisinga (0 ms)
+[----------] 1 test from Mediana (0 ms total)
+
+[----------] 1 test from Vidurkis
+[ RUN      ] Vidurkis.ArReiksmeTeisinga
+[       OK ] Vidurkis.ArReiksmeTeisinga (0 ms)
+[----------] 1 test from Vidurkis (0 ms total)
+
+[----------] 1 test from Galutinis
+[ RUN      ] Galutinis.ArReiksmeTeisinga
+[       OK ] Galutinis.ArReiksmeTeisinga (1 ms)
+[----------] 1 test from Galutinis (1 ms total)
+
+[----------] 1 test from Vardas
+[ RUN      ] Vardas.ArNormalus
+[       OK ] Vardas.ArNormalus (0 ms)
+[----------] 1 test from Vardas (0 ms total)
+
+[----------] 1 test from Pavarde
+[ RUN      ] Pavarde.ArNormalus
+[       OK ] Pavarde.ArNormalus (0 ms)
+[----------] 1 test from Pavarde (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 5 tests from 5 test cases ran. (4 ms total)
+[  PASSED  ] 5 tests.
+```
+## Programos paleidimas
+
+**v2.0 versiją galima pasileisti:**
+
+1. Nusiklonavus repozitoriją
+2. makefile įkėlus į Vector folderį
+3. Per terminalą atsidarius tą folderį ir parašius **make** 
+4. Išvalyti visus duomenis su **make valymas**
+

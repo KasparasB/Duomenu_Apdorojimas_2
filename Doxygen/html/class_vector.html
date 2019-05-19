@@ -147,12 +147,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>shrink_to_fit</b> ()<
 <tr class="memitem:a32ad98b135472b0ebc5d6cb3ae5d0085"><td class="memItemLeft" align="right" valign="top"><a id="a32ad98b135472b0ebc5d6cb3ae5d0085"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> ()</td></tr>
 <tr class="separator:a32ad98b135472b0ebc5d6cb3ae5d0085"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ff8f4b766f9e01d53cdd4fd9abcfad6"><td class="memItemLeft" align="right" valign="top"><a id="a4ff8f4b766f9e01d53cdd4fd9abcfad6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>resize</b> (size_t count)</td></tr>
-<tr class="separator:a4ff8f4b766f9e01d53cdd4fd9abcfad6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c0ff6d87e1519620d8b114a90aab0af"><td class="memItemLeft" align="right" valign="top"><a id="a5c0ff6d87e1519620d8b114a90aab0af"></a>
-T *&#160;</td><td class="memItemRight" valign="bottom"><b>erase</b> (T *pos)</td></tr>
-<tr class="separator:a5c0ff6d87e1519620d8b114a90aab0af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63e2f0ebe257463780996aacb0dc6ceb"><td class="memItemLeft" align="right" valign="top"><a id="a63e2f0ebe257463780996aacb0dc6ceb"></a>
+T *&#160;</td><td class="memItemRight" valign="bottom"><b>erase</b> (const T *it)</td></tr>
+<tr class="separator:a63e2f0ebe257463780996aacb0dc6ceb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab07cfe0c5a651166f23bc7c794a28e9d"><td class="memItemLeft" align="right" valign="top"><a id="ab07cfe0c5a651166f23bc7c794a28e9d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>resize</b> (size_t size)</td></tr>
+<tr class="separator:ab07cfe0c5a651166f23bc7c794a28e9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92876cecd62d9780e077f362dfc5a176"><td class="memItemLeft" align="right" valign="top"><a id="a92876cecd62d9780e077f362dfc5a176"></a>
 T *&#160;</td><td class="memItemRight" valign="bottom"><b>erase</b> (T *first, T *last)</td></tr>
 <tr class="separator:a92876cecd62d9780e077f362dfc5a176"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -162,6 +162,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>push_back</b> (const 
 <tr class="memitem:adcba035109febbe55cba2a25f8483ba6"><td class="memItemLeft" align="right" valign="top"><a id="adcba035109febbe55cba2a25f8483ba6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>pop_back</b> ()</td></tr>
 <tr class="separator:adcba035109febbe55cba2a25f8483ba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8dfa135fec20c87550383b3ae20dff0"><td class="memItemLeft" align="right" valign="top"><a id="ae8dfa135fec20c87550383b3ae20dff0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>assign</b> (size_t count, const T &amp;value)</td></tr>
+<tr class="separator:ae8dfa135fec20c87550383b3ae20dff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa6b2a233d84f04fcaf4a58547414ca5"><td class="memItemLeft" align="right" valign="top"><a id="afa6b2a233d84f04fcaf4a58547414ca5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>assign</b> (T *first, T *last)</td></tr>
+<tr class="separator:afa6b2a233d84f04fcaf4a58547414ca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0cac5c8c23daa39c8daff7dafa060377"><td class="memItemLeft" align="right" valign="top"><a id="a0cac5c8c23daa39c8daff7dafa060377"></a>
 <a class="el" href="class_vector.html">Vector</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="class_vector.html">Vector</a>&lt; T &gt; &amp;other)</td></tr>
 <tr class="separator:a0cac5c8c23daa39c8daff7dafa060377"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -187,10 +193,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>reallocate</b> ()</td
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a0fd3434801c6378fdb12167bbfc61614"><td class="memItemLeft" align="right" valign="top"><a id="a0fd3434801c6378fdb12167bbfc61614"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>sz</b></td></tr>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>sz</b> = 0</td></tr>
 <tr class="separator:a0fd3434801c6378fdb12167bbfc61614"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97ce6d975ed9e9ee81592b0778bee266"><td class="memItemLeft" align="right" valign="top"><a id="a97ce6d975ed9e9ee81592b0778bee266"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>cap</b></td></tr>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>cap</b> = 4</td></tr>
 <tr class="separator:a97ce6d975ed9e9ee81592b0778bee266"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afce0f84380ff2c719e955fd3baa2b4fe"><td class="memItemLeft" align="right" valign="top"><a id="afce0f84380ff2c719e955fd3baa2b4fe"></a>
 T *&#160;</td><td class="memItemRight" valign="bottom"><b>elem</b></td></tr>

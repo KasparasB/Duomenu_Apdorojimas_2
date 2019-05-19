@@ -13,7 +13,7 @@ private:
 public:
 
 	//KONSTRUKTORIAI
-	Vector() : sz{ 0 }, cap{ 0 }, elem{ new T[1] }{};
+	Vector() : sz{ 0 }, cap{ 4 }, elem{ new T[4] }{};
 	Vector(size_t s) : sz{ s }, cap{ s }, elem{ new T[s] } { std::fill_n(elem, s, 0); };
 	Vector(size_t s, T val) : sz{ s }, cap{ s }, elem{ new T[s] }{ std::fill_n(elem, s, val); };
 	Vector(const Vector& v) :elem{ new T[v.sz] }, sz{ v.sz }, cap{ v.cap } { // copy konstruktorius

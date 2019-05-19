@@ -3,6 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <exception>
+#include <cstring> 
 template <typename T>
 class Vector {
 private:

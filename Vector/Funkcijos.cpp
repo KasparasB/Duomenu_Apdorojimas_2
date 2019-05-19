@@ -390,9 +390,23 @@ void geriBlogiMokiniai(Vector<Universitetas>& Studentas, int n, int Ilgiausias_V
 	std::ofstream out1("AtsiverciantysKnygaMokiniai" + std::to_string(TekstinioFailoNr) + ".txt");
 	std::ofstream out2("Nelaimeliai" + std::to_string(TekstinioFailoNr) + ".txt");
 
-	auto search = std::find_if(Studentas.begin(), Studentas.end(), findScore);
 
-	Vector<Universitetas> blogi(search, Studentas.end());
+	auto search = std::find_if(Studentas.begin(), Studentas.end(), findScore);
+cout<<Studentas.size()<<endl;
+/*for(auto i = search; search< (Studentas.end() - Studentas.size()); i++)
+{
+	cout<<i->getScore()<<endl;
+}
+*/
+
+int kk = 0;
+//q	for(auto i =search; i < Studentas.end(); i++) cout<< i->getScore()<<endl;
+	//Vector<Universitetas> blogi(search, Studentas.end());
+	Vector<Universitetas> blogi;
+blogi.reserve(std::distance(search,Studentas.end()));
+for(auto i =search; i < Studentas.end(); i++) blogi.push_back(*i);
+
+
 	//Studentas.erase(search, Studentas.end());
 	//Studentas.shrink_to_fit();
 

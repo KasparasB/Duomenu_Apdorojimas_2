@@ -78,11 +78,11 @@ void {\bfseries shrink\+\_\+to\+\_\+fit} ()
 \mbox{\Hypertarget{class_vector_a32ad98b135472b0ebc5d6cb3ae5d0085}\label{class_vector_a32ad98b135472b0ebc5d6cb3ae5d0085}} 
 void {\bfseries clear} ()
 \item 
-\mbox{\Hypertarget{class_vector_a4ff8f4b766f9e01d53cdd4fd9abcfad6}\label{class_vector_a4ff8f4b766f9e01d53cdd4fd9abcfad6}} 
-void {\bfseries resize} (size\+\_\+t count)
+\mbox{\Hypertarget{class_vector_a63e2f0ebe257463780996aacb0dc6ceb}\label{class_vector_a63e2f0ebe257463780996aacb0dc6ceb}} 
+T $\ast$ {\bfseries erase} (const T $\ast$it)
 \item 
-\mbox{\Hypertarget{class_vector_a5c0ff6d87e1519620d8b114a90aab0af}\label{class_vector_a5c0ff6d87e1519620d8b114a90aab0af}} 
-T $\ast$ {\bfseries erase} (T $\ast$pos)
+\mbox{\Hypertarget{class_vector_ab07cfe0c5a651166f23bc7c794a28e9d}\label{class_vector_ab07cfe0c5a651166f23bc7c794a28e9d}} 
+void {\bfseries resize} (size\+\_\+t size)
 \item 
 \mbox{\Hypertarget{class_vector_a92876cecd62d9780e077f362dfc5a176}\label{class_vector_a92876cecd62d9780e077f362dfc5a176}} 
 T $\ast$ {\bfseries erase} (T $\ast$first, T $\ast$last)
@@ -92,6 +92,12 @@ void {\bfseries push\+\_\+back} (const T \&n)
 \item 
 \mbox{\Hypertarget{class_vector_adcba035109febbe55cba2a25f8483ba6}\label{class_vector_adcba035109febbe55cba2a25f8483ba6}} 
 void {\bfseries pop\+\_\+back} ()
+\item 
+\mbox{\Hypertarget{class_vector_ae8dfa135fec20c87550383b3ae20dff0}\label{class_vector_ae8dfa135fec20c87550383b3ae20dff0}} 
+void {\bfseries assign} (size\+\_\+t count, const T \&value)
+\item 
+\mbox{\Hypertarget{class_vector_afa6b2a233d84f04fcaf4a58547414ca5}\label{class_vector_afa6b2a233d84f04fcaf4a58547414ca5}} 
+void {\bfseries assign} (T $\ast$first, T $\ast$last)
 \item 
 \mbox{\Hypertarget{class_vector_a0cac5c8c23daa39c8daff7dafa060377}\label{class_vector_a0cac5c8c23daa39c8daff7dafa060377}} 
 \mbox{\hyperlink{class_vector}{Vector}}$<$ T $>$ {\bfseries operator=} (const \mbox{\hyperlink{class_vector}{Vector}}$<$ T $>$ \&other)
@@ -118,10 +124,10 @@ void {\bfseries reallocate} ()
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_vector_a0fd3434801c6378fdb12167bbfc61614}\label{class_vector_a0fd3434801c6378fdb12167bbfc61614}} 
-size\+\_\+t {\bfseries sz}
+size\+\_\+t {\bfseries sz} = 0
 \item 
 \mbox{\Hypertarget{class_vector_a97ce6d975ed9e9ee81592b0778bee266}\label{class_vector_a97ce6d975ed9e9ee81592b0778bee266}} 
-size\+\_\+t {\bfseries cap}
+size\+\_\+t {\bfseries cap} = 4
 \item 
 \mbox{\Hypertarget{class_vector_afce0f84380ff2c719e955fd3baa2b4fe}\label{class_vector_afce0f84380ff2c719e955fd3baa2b4fe}} 
 T $\ast$ {\bfseries elem}
